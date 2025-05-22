@@ -39,25 +39,29 @@ num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
 if selected_movie:
     st.subheader(f"Similar Movies to: {selected_movie}")
     recommendations = get_similar_movies(selected_movie, num_recs)
-    st.dataframe(recommendations[["title", "genres", "Similarity"]])
-    genres_all = sorted(set(g for sublist in recommendations["genres"].dropna().str.split("|") for g in sublist))
-    selected_genres = st.multiselect("Filter by Genre", genres_all)
+    if not recommendations.empty:
+    	st.dataframe(recommendations[["title", "genres", "Similarity"]])
+   	genres_all = sorted(set(
+	    g for sublist in recommendations["genres"].dropna().str.split("|") for g in sublist
+	))
+   	selected_genres = st.multiselect("Filter by Genre", genres_all)
 
-    if selected_genres:
-    	recommendations =recommendations[recommendations["genres"].str.contains("|".join(selected_genres))]
+    	if selected_genres:
+    	    recommendations =recommendations[recommendations["genres"].str.contains("|".join(selected_genres))]
 
-st.subheader(f"Similar Movies to: {selected_movie}")
+	st.subheader(f"Similar Movies to: {selected_movie}")
 
-for _, row in recommendations.iterrows():
-    similarity = f"{row["Similarity"]:.3f}"
-    genres = row["genres"].replace("|", ", ")
-    st.markdown(f"""
-        <div style="border:1px solid #ddd; border-radius:10px; padding:15px; margin-bottom:15px; background-color:#f9f9f9">
-            <h4 style="color:#2c3e50;">{row["title"]}</h4>
-            <p><strong>Genres:</strong> <span style="color:#ec7e22;">{genres}</span></p>
-            <p><strong>Similarity Score:</strong> <span style="color:#27ae60:">{similarity}</span></p>
-        </div>
-    """, unsafe_allow_html=True)
+	for _, row in recommendations.iterrows():
+    	    similarity = f"{row["Similarity"]:.3f}"
+    	    genres = row["genres"].replace("|", ", ")
+    	    st.markdown(f"""
+        	<div style="border:1px solid #ddd; border-radius:10px; padding:15px; margin-bottom:15px; background-color:#f9f9f9">
+            	    <h4 style="color:#2c3e50;">{row["title"]}</h4>
+            	    <p><strong>Genres:</strong> <span style="color:#ec7e22;">{genres}</span></p>
+            	    <p><strong>Similarity Score:</strong> <span style="color:#27ae60:">{similarity}</span></p>
+        	</div>
+    	    """, unsafe_allow_html=True)
 
-DATE_COLUMN = "date/time"
+    else:
+	st.write("No similar movies found")
 
