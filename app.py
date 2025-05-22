@@ -4,8 +4,8 @@ import pandas as pd
 st.title("Movie Madness")
 
 #loading the dataset 
-movies = pd.read_pickle("movies.pkl")
-similarity_with_item = pd.read_pickle("similarity_with_item.pkl")
+movies = pd.read_pickle("https://github.com/Glenda-Ireland/MovieMadness/blob/main/movies.pkl")
+similarity_with_item = pd.read_pickle("https://github.com/Glenda-Ireland/MovieMadness/blob/main/similarity_with_item.pkl")
 valid_movie_ids = similarity_with_item.columns
 movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
 title_to_id = movies_filtered.set_index("title")["movieId"].to_dict()
