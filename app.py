@@ -32,7 +32,7 @@ movie_list = sorted(title_to_id.keys())
 
 #message to check
 st.write("Movies loaded:", moves.shape)
-st.write("Sample titles:", movies["title"].dropna().head()
+st.write("Sample titles:", movies["title"].dropna().head())
 st.write("Filtered movie count:", len(title_to_id))
 
 selected_movie = st.selectbox("Pick a movie", movie_list)
