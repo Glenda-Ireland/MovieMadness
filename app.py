@@ -4,7 +4,7 @@ import pandas as pd
 st.title("Movie Madness")
 
 #loading the dataset 
-movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.csv")
+movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movies.csv")
 similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv", index_col=0)
 
 valid_movie_ids = similarity_with_item.columns.intersection(movies["movieId"])
