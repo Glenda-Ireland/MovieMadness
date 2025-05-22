@@ -7,7 +7,7 @@ st.title("Movie Madness")
 movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movies.csv", encoding="ISO-8859-1")
 similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv", index_col=0)
 valid_movie_ids = similarity_with_item.columns
-movies["movieId"] = movies["movieId"].astype(Int)
+movies["movieId"] = movies["movieId"].astype(int)
 movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
 similarity_with_item.index = similarity_with_item.index.astype(int)
 similarity_with_item.columns = similarity_with_item.columns.astype(int)
