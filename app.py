@@ -31,7 +31,7 @@ st.title("Select A Movie You Enjoy- Find a Recommendation")
 movie_list = sorted(title_to_id.keys())
 
 #message to check
-st.write("Movies loaded:", moves.shape)
+st.write("Movies loaded:", movies.shape)
 st.write("Sample titles:", movies["title"].dropna().head())
 st.write("Filtered movie count:", len(title_to_id))
 
