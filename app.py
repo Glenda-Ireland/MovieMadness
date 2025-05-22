@@ -40,7 +40,7 @@ if selected_movie:
     st.subheader(f"Similar Movies to: {selected_movie}")
     recommendations = get_similar_movies(selected_movie, num_recs)
     if not recommendations.empty:
-    	st.dataframe(recommendations[["title", "genres", "Similarity"]])
+        st.dataframe(recommendations[["title", "genres", "Similarity"]])
         genres_all = sorted(set(
             g for sublist in recommendations["genres"].dropna().str.split("|") for g in sublist
         ))
