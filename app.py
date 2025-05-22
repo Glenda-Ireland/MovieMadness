@@ -29,6 +29,12 @@ def get_similar_movies(movie_title, n=10):
 #UI    
 st.title("Select A Movie You Enjoy- Find a Recommendation")
 movie_list = sorted(title_to_id.keys())
+
+#message to check
+st.write("Movies loaded:", moves.shape)
+st.write("Sample titles:", movies["title"].dropna().head()
+st.write("Filtered movie count:", len(title_to_id))
+
 selected_movie = st.selectbox("Pick a movie", movie_list)
 num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
 
