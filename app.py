@@ -32,11 +32,12 @@ if selected_movie:
     recommendations = get_similar_movies(selected_movie, num_recs)
     st.dataframe(recommendations[["title", "genres", "Similarity"]])
 
-genres_all = sorted(set(g for sublist in recommendations["genres"].str.split("|") for g in sublist))
-selected_genres = st.multiselect("Filter by Genre", genres_all)
+	genres_all = sorted(set(
+		g for sublist in recommendations["genres"].dropna().str.split("|") for g in sublist))
+	selected_genres = st.multiselect("Filter by Genre", genres_all)
 
-if selected_genres:
-    recommendations = recommendations[recommendations["genres"].str.contains("|".join(selected_genres))]
+	if selected_genres:
+    		recommendations =recommendations[recommendations["genres"].str.contains("|".join(selected_genres))]
 
 st.subheader(f"Similar Movies to: {selected_movie}")
 
