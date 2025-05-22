@@ -5,28 +5,29 @@ st.title("Movie Madness")
 
 #loading the dataset 
 movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.csv")
-similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv")
-valid_movie_ids = similarity_with_item.columns
+similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv", index_col=0)
 
+valid_movie_ids = similarity_with_item.columns.intersection(movies["movieId"])
+movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
 
-
-
-
+#dictionary
 title_to_id = movies_filtered.set_index("title")["movieId"].to_dict()
 id_to_title = movies_filtered.set_index("movieId")["title"].to_dict()
+
+#function for the logic of recommending 
 def get_similar_movies(movie_title, n=10):
     movie_id = title_to_id.get(movie_title)
-    if movie_id not in similarity_with_item:
+    if movie_id is None or movie_id in not in similarity_with_item.index:
         return pd.DataFrame()
+
     similar_scores = similarity_with_item[movie_id].dropna().sort_values(ascending=False).head(n)
     similar_ids = similar_scores.index
     result = movies[movies["movieId"].isin(similar_ids)].copy()
     result["Similarity"] = result["movieId"].map(similar_scores)
-    result = result.sort_values(by="Similarity", ascending=False)
-    return result.reset_index(drop=True)
+    result = result.sort_values(by="Similarity", ascending=False).reset_index(drop=True)
 
-st.title("Select A Movie You Enjoy- Find a Recommendation")
-
+#UI    
+st.subtitle("Select A Movie You Enjoy- Find a Recommendation")
 movie_list = sorted(title_to_id.keys())
 selected_movie = st.selectbox("Pick a movie", movie_list)
 num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
@@ -34,8 +35,10 @@ num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
 if selected_movie:
     st.subheader(f"Similar Movies to: {selected_movie}")
     recommendations = get_similar_movies(selected_movie, num_recs)
+
     if not recommendations.empty:
         st.dataframe(recommendations[["title", "genres", "Similarity"]])
+
         genres_all = sorted(set(
             g for sublist in recommendations["genres"].dropna().str.split("|") for g in sublist
         ))
