@@ -27,7 +27,7 @@ def get_similar_movies(movie_title, n=10):
     result = result.sort_values(by="Similarity", ascending=False).reset_index(drop=True)
 
 #UI    
-st.subtitle("Select A Movie You Enjoy- Find a Recommendation")
+st.title("Select A Movie You Enjoy- Find a Recommendation")
 movie_list = sorted(title_to_id.keys())
 selected_movie = st.selectbox("Pick a movie", movie_list)
 num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
