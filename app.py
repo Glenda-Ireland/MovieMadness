@@ -4,8 +4,8 @@ import pandas as pd
 st.title("Movie Madness")
 
 #loading the dataset 
-movies = pd.read_csv("https://github.com/Glenda-Ireland/MovieMadness/blob/main/movies.csv")
-similarity_with_item = pd.read_csv("https://github.com/Glenda-Ireland/MovieMadness/blob/main/similarity_with_item.csv", nrows=nrows)
+movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movies.csv")
+similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv", nrows=nrows)
 valid_movie_ids = similarity_with_item.columns
 movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
 title_to_id = movies_filtered.set_index("title")["movieId"].to_dict()
