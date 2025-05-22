@@ -12,7 +12,7 @@ movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
 similarity_with_item.index = similarity_with_item.index.astype(int)
 similarity_with_item.columns = similarity_with_item.columns.astype(int)
 print("Movies movieIds:", movies["movieId"].head())
-print("Similiarity matrix index:" similarity_with_item.index[:5])
+print("Similiarity matrix index:", similarity_with_item.index[:5])
 print("Similarity matrix columns:", similarity_with_item.columns[:5])
 
 
