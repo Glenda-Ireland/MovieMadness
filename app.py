@@ -17,7 +17,7 @@ id_to_title = movies_filtered.set_index("movieId")["title"].to_dict()
 #function for the logic of recommending 
 def get_similar_movies(movie_title, n=10):
     movie_id = title_to_id.get(movie_title)
-    if movie_id is None or movie_id not in in similarity_with_item.index:
+    if movie_id is None or movie_id not in similarity_with_item.index:
         return pd.DataFrame()
 
     similar_scores = similarity_with_item[movie_id].dropna().sort_values(ascending=False).head(n)
