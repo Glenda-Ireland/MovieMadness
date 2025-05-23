@@ -86,6 +86,7 @@ elif app_mode == "Genre Time Series":
     df = df.explode("genres")
     selected_genre = st.selectbox("Choose a Genre", sorted(df["genres"].dropna().unique()))
     genre_df = df[df["genres"] == selected_genre]
+    genre_df["Month_Year"] = pd.to_datetime(genre_df["Month_Year"], format="%m/%Y")
     genre_df["Year"] = genre_df["Month_Year"].dt.year
     avg_ratings = genre_df.groupby("Year")["rating"].mean().reset_index()
     fig, ax = plt.subplots()
