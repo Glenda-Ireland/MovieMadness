@@ -90,9 +90,9 @@ elif app_mode == "Genre Time Series":
     genre_df["Year"] = genre_df["Month_Year"].dt.year
     avg_ratings = genre_df.groupby("Year")["rating"].mean().reset_index()
     fig, ax = plt.subplots()
-    ax.plot(avg_ratings["Month_Year"], avg_ratings["rating"], marker="o")
+    ax.plot(avg_ratings["Year"], avg_ratings["rating"], marker="o")
     ax.set_title(f"Average Rating Over Time: {selected_genre}")
-    ax.set_xlabel("Month and Year")
+    ax.set_xlabel("Year")
     ax.set_ylabel("Average Rating")
     plt.xticks(rotation=45)
     st.pyplot(fig)
