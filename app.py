@@ -100,7 +100,7 @@ elif app_mode == "Book-Based Movies":
     df1 = df1.explode("genres")
     genre_options = sorted(df1["genres"].dropna().unique())
     selected_genre1 = st.selectbox("Choose a Genre", genre_options)
-    results1 = df1[df1["genres"] == selected_genre1]["title", "tag"]].drop_duplicates()
+    results1 = df1[df1["genres"] == selected_genre1]["title", "tag"].drop_duplicates()
     st.write(f"Movies Based on Books in Genre: {selected_genre1}")
     if not results1.empty:
         st.dataframe(results1)
