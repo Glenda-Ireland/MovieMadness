@@ -10,6 +10,7 @@ import numpy as np
 
 st.set_page_config(layout="wide")
 st.title("Movie Madness Dashboard")
+st.write("Welcome to your Movie Dashboard.  Select an App from the Left Sidebar.")
 
 #adding sidebar navigation
 app_mode = st.sidebar.radio("Choose App", ["Movie Recommender", "Genre Time Series", "Book-Based Movies"])
@@ -62,7 +63,7 @@ if app_mode == "Movie Recommender":
         if selected_genres:
             recommendations =recommendations[recommendations["genres"].str.contains("|".join(selected_genres))]
 
-        st.subheader(f"Similar Movies to: {selected_movie}")
+        st.subheader(f"Here are Similar Movies You May Like Based On: {selected_movie}")
 
         for _, row in recommendations.iterrows():
             similarity = f"{row["Similarity"]:.3f}"
@@ -81,6 +82,8 @@ if app_mode == "Movie Recommender":
 # App 2 Genre Time series
 elif app_mode == "Genre Time Series":
     st.subheader("Average Ratings per Genre Over Time")
+    st.write("The color shows you how many ratings make up the average per year")
+    st.write("Select a Genre to Explore the Trend")
     @st.cache_data
     def load_data():
         return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.pkl")
@@ -119,6 +122,7 @@ elif app_mode == "Genre Time Series":
 #App 3: Book Based
 elif app_mode == "Book-Based Movies":
     st.subheader("Movies Based on Books")
+    st.write("If you enjoy books based on movies, browse a genre for book-based options")
     @st.cache_data
     def load_data1():
         return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/bookish.pkl")
@@ -138,3 +142,4 @@ elif app_mode == "Book-Based Movies":
 #matplotlib and streamlit tutorials definitely helped but it was still very painful
 #every single little tiny error had to be fixed.  
 #i thought streamlit would be the easier dashboard to make - it was not. 
+#i was trying to make up for not getting a distinction on the first one but I fell short as I spent too much time trying to put a lot of detail in.
