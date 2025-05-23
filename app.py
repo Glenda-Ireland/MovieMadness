@@ -76,7 +76,9 @@ if app_mode == "Movie Recommender":
 elif app_mode == "Genre Time Series":
     st.subheader("Average Ratings per Genre Over Time")
     @st.cache_data
-    df = pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.pkl")
+    def load_data():
+        return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.pkl")
+    df = load_data()
     df["genres"] = df["genres"].str.split("|")
     df = df.explode("genres")
     selected_genre = st.selectbox("Choose a Genre", sorted(df["genres"].dropna().unique()))
@@ -95,7 +97,10 @@ elif app_mode == "Genre Time Series":
 #App 3: Book Based
 elif app_mode == "Book-Based Movies":
     st.subheader("Movies Based on Books")
-    df1 = pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/clean_book.pkl")
+    @st.cache_data
+    def load_data1():
+        return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/clean_book.pkl")
+    df1 = load_data1()
     df1["genres"] = df1["genres"].str.split("|")
     df1 = df1.explode("genres")
     genre_options = sorted(df1["genres"].dropna().unique())
