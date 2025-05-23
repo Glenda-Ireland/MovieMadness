@@ -105,4 +105,4 @@ elif app_mode == "Book-Based Movies":
     if not results1.empty:
         st.dataframe(results1)
     else:
-        st.write("No results found for this genre")
+        st.write("No results found for this Genre")
