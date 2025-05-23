@@ -5,10 +5,11 @@ st.title("Movie Madness")
 
 #loading the dataset 
 movies = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movies.csv")
-similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv")
+similarity_with_item = pd.read_csv("https://raw.github.com/Glenda-Ireland/MovieMadness/main/similarity_with_item.csv", index=0)
 
-valid_movie_ids = similarity_with_item.columns
+valid_movie_ids = similarity_with_item.index.intersection(similarity_with_item.columns).intersection(movies["MovieId"])
 movies_filtered = movies[movies["movieId"].isin(valid_movie_ids)]
+
 
 #dictionary
 title_to_id = movies_filtered.set_index("title")["movieId"].to_dict()
