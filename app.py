@@ -46,7 +46,7 @@ if app_mode == "Movie Recommender":
         return result.reset_index(drop=True)
     st.title("Select A Movie You Enjoy- Find a Recommendation")
     movie_list = sorted(title_to_id.keys())
-    selected_movie = st.selectbox("Pick a movie", movie_list)
+    selected_movie = st.selectbox("Pick a movie you enjoy for similar recommendations", movie_list)
     num_recs = st.slider("Number of Similar Movies", 5, 20, 10)
     if selected_movie:
         st.subheader(f"Similar Movies to: {selected_movie}")
@@ -91,7 +91,7 @@ elif app_mode == "Genre Time Series":
     
     df["genres"] = df["genres"].str.split("|")
     df = df.explode("genres")
-    selected_genre = st.selectbox("Choose a Genre", sorted(df["genres"].dropna().unique()))
+    selected_genre = st.selectbox("Choose a Genre to see the Trends in Ratings over Time", sorted(df["genres"].dropna().unique()))
     genre_df = df[df["genres"] == selected_genre]
     genre_df["Month_Year"] = pd.to_datetime(genre_df["Month_Year"], format="%m/%Y")
     genre_df["Year"] = genre_df["Month_Year"].dt.year
@@ -130,7 +130,7 @@ elif app_mode == "Book-Based Movies":
     df1["genres"] = df1["genres"].str.split("|")
     df1 = df1.explode("genres")
     genre_options = sorted(df1["genres"].dropna().unique())
-    selected_genre1 = st.selectbox("Choose a Genre", genre_options)
+    selected_genre1 = st.selectbox("Choose a Genre to Find Movies related to Books", genre_options)
     results1 = df1[df1["genres"] == selected_genre1][["title", "tag"]].drop_duplicates()
     st.write(f"Movies Based on Books in Genre: {selected_genre1}")
     if not results1.empty:
