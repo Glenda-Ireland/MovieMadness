@@ -18,14 +18,15 @@ id_to_title = movies_filtered.set_index("movieId")["title"].to_dict()
 #function for the logic of recommending 
 def get_similar_movies(movie_title, n=10):
     movie_id = title_to_id.get(movie_title)
-    if movie_id is None or movie_id not in similarity_with_item.index:
+    if movie_id not in similarity_with_item:
         return pd.DataFrame()
 
     similar_scores = similarity_with_item[movie_id].dropna().sort_values(ascending=False).head(n)
     similar_ids = similar_scores.index
     result = movies[movies["movieId"].isin(similar_ids)].copy()
     result["Similarity"] = result["movieId"].map(similar_scores)
-    result = result.sort_values(by="Similarity", ascending=False).reset_index(drop=True)
+    result = result.sort_values(by="Similarity", ascending=False)
+    return result.reset_index(drop=True)
 
 #UI    
 st.title("Select A Movie You Enjoy- Find a Recommendation")
