@@ -98,7 +98,7 @@ elif app_mode == "Genre Time Series":
     colors = cmap(norm(avg_ratings["count"].iloc[:-1]))
     lc = LineCollection(segments, colors=colors, linewidths=2)
     ax.add_collection(lc)
-    sc = ax.scatter(avg_ratings["Year"], avg_rating, c=avg_ratings["count"], cmap="magma, edgecolor="black")
+    sc = ax.scatter(avg_ratings["Year"], avg_rating, c=avg_ratings["count"], cmap="magma", edgecolor="black")
     ax.set_xlim(avg_ratings["Year"].min(), avg_ratings["Year"].max())
     ax.set_ylim(avg_ratings["rating"].min() - 0.1, avg_ratings["rating"].max() + 0.1)
     plt.colorbar(sc, ax=ax, label="Number of Ratings")
