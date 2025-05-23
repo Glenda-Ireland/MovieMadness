@@ -81,11 +81,13 @@ elif app_mode == "Genre Time Series":
     def load_data():
         return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/movie_vis.pkl")
     df = load_data()
+    
     df["genres"] = df["genres"].str.split("|")
     df = df.explode("genres")
     selected_genre = st.selectbox("Choose a Genre", sorted(df["genres"].dropna().unique()))
     genre_df = df[df["genres"] == selected_genre]
-    avg_ratings = genre_df.groupby("Month_Year")["rating"].mean().reset_index()
+    genre_df["Year"] = genre_df["Month_Year"].dt.year
+    avg_ratings = genre_df.groupby("Year")["rating"].mean().reset_index()
     fig, ax = plt.subplots()
     ax.plot(avg_ratings["Month_Year"], avg_ratings["rating"], marker="o")
     ax.set_title(f"Average Rating Over Time: {selected_genre}")
@@ -101,7 +103,7 @@ elif app_mode == "Book-Based Movies":
     st.subheader("Movies Based on Books")
     @st.cache_data
     def load_data1():
-        return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/clean_book.pkl")
+        return pd.read_pickle("https://raw.github.com/Glenda-Ireland/MovieMadness/main/bookish.pkl")
     df1 = load_data1()
     df1["genres"] = df1["genres"].str.split("|")
     df1 = df1.explode("genres")
