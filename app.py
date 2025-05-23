@@ -95,8 +95,8 @@ elif app_mode == "Genre Time Series":
     avg_ratings = genre_df.groupby("Year")["rating"].mean().reset_index()
     fig, ax = plt.subplots()
     count_ratings = genre_df.groupby("Year")["rating"].count().reset_index(name="count")
-    avg_ratings = avg_ratings.merge(count_ratings, on "Year")
-    #adding colors to make it more targeted for audience and better to see how many ratings 
+    avg_ratings = avg_ratings.merge(count_ratings, on="Year")
+    #adding colors to make it more targeted for audience and better to see how many ratings, this means I had to count the ratings and create seperation
     cmap = cm.get_cmap("magma")
     norm = mcolors.Normalize(vmin=avg_ratings["count"].min(), vmax=avg_ratings["count"].max())
     points = np.array([avg_ratings["Year"], avg_ratings["rating"]]).T.reshape(-1, 1, 2)
