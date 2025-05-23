@@ -3,6 +3,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+import matplotlib.cm as cm
+from matplotlib.collections import LineCollection
+import numpy as np
 
 st.set_page_config(layout="wide")
 st.title("Movie Madness Dashboard")
